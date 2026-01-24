@@ -28,11 +28,19 @@ dist-ssr
 *.local
 
 # Project
-/apirest/*
-/platform/mariadb-11.8/data
-/platform/nginx-php/docker/config
-/platform/nginx-php/docker/Dockerfile
-/resources/database/*.sql
-/Makefile
-/jenkis-*
 /vault
+/platform/nginx-php-8.5/docker/config/nginx/conf.d/
+!/platform/nginx-php-8.5/docker/config/nginx/conf.d/.gitkeep
+/platform/nginx-php*/docker/config/supervisor/conf.d
+!/platform/nginx-php*/docker/config/supervisor/conf.d/.gitkeep
+/resources/database/*
+!/resources/database/.gitkeep
+/resources/docs/apirest/project/*
+!/resources/docs/apirest/project/.gitkeep
+/platform/mysql*/data
+/platform/mariadb*/data
+/platform/pgsql*/data
+/apirest/*
+!/apirest/.gitkeep
+/webapp/*
+!/webapp/.gitkeep
