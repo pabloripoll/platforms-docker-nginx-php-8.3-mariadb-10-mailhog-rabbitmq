@@ -8,13 +8,13 @@
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](./)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-# NGINX 1.26, PHP 8.3, MariaDB 10.11
+# NGINX 1.26, PHP 8.3, MariaDB 11.8
 <br>
 
 This Infrastructure Platform repository is designed for back-end projects and provides three separate platforms:
 
 - API Platform: Linux Alpine version 3.21 + NGINX version 1.26 *(or the latest on Alpine Package Keeper)* + PHP FPM 8.3
-- Database Platform: Linux Ubuntu version 24.04 + MariaDB 10.11
+- Database Platform: Linux Ubuntu version 24.04 + MariaDB 11.8
 - Mail Service Platform: Linux Alpine version 3.12 + Mailhog 1.0
 
 The goal of this repository is to offer developers a consistent framework for local development, mirroring real-world deployment scenarios. In production, the API may be deployed on an AWS EC2 / GCP GCE or instance or distributed across Kubernetes pods, while the database would reside on an AWS RDS instance. thus, network connection between platforms are decoupled.
@@ -154,20 +154,20 @@ This approach lets developers run additional worker processes locally without ch
 
 ## <a id="db-settings"></a>Database Platform
 
-Inside `./platform/mariadb-10.11` there are a dedicated GNU Make file and the main Docker directory with the required scripts to build the required platform configuration adapted from [MariaDBQL GitHub repository source](https://github.com/docker-library/MariaDB/blob/master/16/alpine3.21/docker-entrypoint.sh)
+Inside `./platform/mariadb-11.8` there are a dedicated GNU Make file and the main Docker directory with the required scripts to build the required platform configuration adapted from [MariaDBQL GitHub repository source](https://github.com/docker-library/MariaDB/blob/master/16/alpine3.21/docker-entrypoint.sh)
 
 Content:
 - Linux Ubuntu 24.04
-- MariaDB 10.11
+- MariaDB 11.8
 <br>
 
 <font color="orange"><b>IMPORTANT:</b></font> There is a `.env.example` file with the variables required to build the container by `docker-compose.yml` file to create the container if no GNU Make is available on developer's machine. Otherwise, it is not required to create its `.env` manually file for building the container.
 
-Database environment: `./platform/mariadb-10.11/docker/.env`
+Database environment: `./platform/mariadb-11.8/docker/.env`
 ```bash
 COMPOSE_PROJECT_LEAD="myproj"
 COMPOSE_PROJECT_CNET="mp-dev"
-COMPOSE_PROJECT_IMGK="ubuntu-mariadb-10.11"
+COMPOSE_PROJECT_IMGK="ubuntu-mariadb-11.8"
 COMPOSE_PROJECT_NAME="mp-mariadb-dev"
 COMPOSE_PROJECT_HOST="127.0.0.1"
 COMPOSE_PROJECT_PORT=7500
@@ -231,8 +231,8 @@ APIREST_GIT_HOST=github.org
 APIREST_GIT_BRANCH=develop
 APIREST_DOMAIN=
 
-DATABASE_PLTF=mariadb-10.11
-DATABASE_IMGK=ubuntu24-mariadb-10.11
+DATABASE_PLTF=mariadb-11.8
+DATABASE_IMGK=ubuntu24-mariadb-11.8
 DATABASE_PORT=7500
 DATABASE_CAAS=mp-mariadb-dev
 DATABASE_CAAS_MEM=128M
@@ -334,8 +334,8 @@ This streamlines the workflow for managing containers with mnemonic recipe names
 
 Clone the platforms repository
 ```bash
-$ git clone https://github.com/pabloripoll/docker-platform-nginx-php-8.3-mariadb-10.11
-$ cd docker-platform-nginx-php-8.3-mariadb-10.11
+$ git clone https://github.com/pabloripoll/docker-platform-nginx-php-8.3-mariadb-11.8
+$ cd docker-platform-nginx-php-8.3-mariadb-11.8
 ```
 
 Repository directories structure overview:
@@ -357,7 +357,7 @@ Repository directories structure overview:
 │   │   │
 │   │   └── Makefile
 │   │
-│   ├── MariaDB-10.11
+│   ├── MariaDB-11.8
 │   │   ├── docker
 │   │   └── Makefile
 │   │
