@@ -28,19 +28,20 @@ dist-ssr
 *.local
 
 # Project
-/vault
-/platform/nginx-php-8.5/docker/config/nginx/conf.d/
-!/platform/nginx-php-8.5/docker/config/nginx/conf.d/.gitkeep
-/platform/nginx-php*/docker/config/supervisor/conf.d
-!/platform/nginx-php*/docker/config/supervisor/conf.d/.gitkeep
+
+/Makefile
+
 /resources/database/*
 !/resources/database/.gitkeep
 /resources/docs/apirest/project/*
 !/resources/docs/apirest/project/.gitkeep
-/platform/mysql*/data
-/platform/mariadb*/data
-/platform/pgsql*/data
+/resources/automation/remote/*
+!/resources/automation/remote/.gitkeep
+
 /apirest/*
 !/apirest/.gitkeep
-/webapp/*
-!/webapp/.gitkeep
+/application/*
+!/application/.gitkeep
+
+# Developer's vault
+/vault
