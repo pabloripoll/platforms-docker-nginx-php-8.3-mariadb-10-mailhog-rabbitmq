@@ -93,11 +93,11 @@ apirest-set: ## sets the apirest enviroment file to build the container
 apirest-create: ## creates the apirest container from Docker image
 	cd platforms/$(APIREST_PLTF) && $(MAKE) build up
 
-apirest-network: ## recreates the apirest container with specified network
+apirest-network: ## recreates the apirest container with specified network as lead
 	$(MAKE) apirest-stop
 	cd platforms/$(APIREST_PLTF) && $(MAKE) network
 
-apirest-host-gateway: ## recreates the apirest container with docker internal host-gateway with local machine
+apirest-host-gateway: ## recreates the apirest container with docker with local machine internal host-gateway
 	$(MAKE) apirest-stop
 	cd platforms/$(APIREST_PLTF) && $(MAKE) host-gateway
 
@@ -147,8 +147,8 @@ db-create: ## creates the database container from Docker image
 	cd platforms/$(DATABASE_PLTF) && $(MAKE) build up
 
 db-network: ## creates the database container external network
-	$(MAKE) apirest-stop
-	cd platforms/$(DATABASE_PLTF) && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.network.yml up -d
+	$(MAKE) db-stop
+	cd platforms/$(DATABASE_PLTF) && $(MAKE) network
 
 db-ssh: ## enters the apirest container shell
 	cd platforms/$(DATABASE_PLTF) && $(MAKE) ssh
