@@ -31,8 +31,8 @@ dist-ssr
 
 /Makefile
 
-/resources/database/*
-!/resources/database/.gitkeep
+/resources/databases/*
+!/resources/databases/.gitkeep
 /resources/docs/apirest/project/*
 !/resources/docs/apirest/project/.gitkeep
 /resources/automation/remote/*
