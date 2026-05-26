@@ -51,6 +51,23 @@ local-ownership-set: ## sets recursively local root directory ownership
 	$(SUDO) chown -R ${user}:${group} $(ROOT_DIR)/
 
 # -------------------------------------------------------------------------------------------------
+#  Networking
+# -------------------------------------------------------------------------------------------------
+.PHONY: network-exists network-create network-info network-destroy
+
+network-exists: ## lists all local networks
+	$(DOCKER) network ls
+
+network-create: ## creates network
+	$(SUDO) network create --driver bridge $(PROJECT_LEAD)-$(PROJECT_CNET)
+
+network-info: ## shows network information
+	$(DOCKER) network inspect $(PROJECT_LEAD)-$(PROJECT_CNET) --format '{{json .Containers}}'
+
+network-destroy: ## destroys network
+	$(DOCKER) network rm $(PROJECT_LEAD)-$(PROJECT_CNET)
+
+# -------------------------------------------------------------------------------------------------
 #  Services Full Control
 # -------------------------------------------------------------------------------------------------
 .PHONY: services-set services-create services-info services-start services-restart services-stop services-destroy
