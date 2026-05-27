@@ -115,10 +115,10 @@ ssh: ## enters the container shell
 	$(DOCKER_EXEC_SSH)
 
 up: ## starts and recreates containers if compose config or image changed, runnning in detached mode
-	cd docker && $(DOCKER_COMPOSE) up -f docker-compose.yml -f docker-compose.public.yml -d
+	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.public.yml up -d
 
 build: ## builds and ensures changes in the Dockerfile, build steps, or copied-in files are applied. Not --no-recreate
-	cd docker && $(DOCKER_COMPOSE) up -f docker-compose.yml -f docker-compose.public.yml --build -d
+	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.public.yml up --build -d
 
 network: ## starts up into an existing custom network for container-to-container communication, runnning in detached mode
 	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.network.yml up -d
