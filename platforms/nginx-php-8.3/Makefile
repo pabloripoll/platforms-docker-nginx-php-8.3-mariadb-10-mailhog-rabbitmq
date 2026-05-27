@@ -126,13 +126,19 @@ info: ## shows container information
 ssh: ## enters the container shell
 	$(DOCKER_EXEC_SSH)
 
-build: ## builds the container from Dockerfile
-	cd docker && $(DOCKER_COMPOSE) up --build --no-recreate -d
+up: ## starts and recreates containers if compose config or image changed, runnning in detached mode
+	cd docker && $(DOCKER_COMPOSE) up -f docker-compose.yml -f docker-compose.ports.yml -d
 
-up: ## attaches to containers for a service and also starts any linked services
-	cd docker && $(DOCKER_COMPOSE) up -d
+build: ## builds and ensures changes in the Dockerfile, build steps, or copied-in files are applied. Not --no-recreate
+	cd docker && $(DOCKER_COMPOSE) up -f docker-compose.yml -f docker-compose.ports.yml --build -d
 
-start: ## starts the container and put on running
+network: ## starts up into an existing custom network for container-to-container communication, runnning in detached mode
+	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.network.yml up -d
+
+host-gateway: ## starts up for container-to-host communication, runnning in detached mode
+	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.host-gateway.yml up -d
+
+start: ## starts the container and put on running from latest configuration
 	cd docker && $(DOCKER_COMPOSE) start
 
 stop: ## stops the running container but data will not be destroyed
@@ -151,12 +157,6 @@ destroy: ## delete container image from Docker cache
 
 dev: ## sets a development enviroment
 	echo ${C_YEL}"\"dev\" recipe has not usage in this project"${C_END};
-
-network:
-	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.network.yml up -d
-
-host-gateway:
-	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.host-gateway.yml up -d
 
 # -------------------------------------------------------------------------------------------------
 #  Supervisord services management
