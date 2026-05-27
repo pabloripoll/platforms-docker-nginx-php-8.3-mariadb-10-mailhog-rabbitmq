@@ -49,6 +49,7 @@ Platform engineering is the discipline of creating and managing an internal deve
 ## Contents:
 
 - [Requirements](#requirements)
+- [Containers Access Modes](#container-access-mode)
 - [Platform Features](#platform-features)
 - [API Platform](#api-settings)
 - [Database Platform](#db-settings)
@@ -79,6 +80,27 @@ Despite Docker’s cross-platform compatibility, for intermediate to advanced so
 | RAM           | *(for this container)*: 128 MB minimum.                                                         |
 | DISK          | 1 GB *(though is much less, its usage could be incremented depending on the project usage)*.  |
 <br>
+
+## <a id="container-access-mode"></a>Containers Access Modes
+
+- If no application is on `./apirest` directory *(or your custom binded directory name)* once container is up it wont provide a application and therefore NGINX will respond with an error. Copy an start-up example application or create a parking page.
+
+- Each container have a directory to set the required environment values in `./docker/.env` from `./docker/.env.example` if no GNU Make will be applied.
+
+- Also, each container may need to set the required configuration files by coping and updating them depending on your project requirements.
+
+- Containers availability by building the container with `docker-composer.yml` in separated configuration layers
+    - Stand-alone
+        - The container is intended to be published directly and accessed from the host network, typically via `0.0.0.0:<port>`. It does not require a shared Docker network. It is a common setting for local development.
+    - Inside a Custom Network
+        - The container is attached to a custom Docker network and is intended to be accessed through a reverse proxy or other containers on the same network. This is useful for isolating services while still allowing container-to-container communication. It is a recommended setting for remote deployment.
+    - Host-Gateway
+        - The container can reach services running on the host machine using the Docker host gateway mapping. This is useful when the container must access local services on the VPS/host, while public access is still handled through a reverse proxy. It is a recommended setting for remote deployment too.
+    - Public exposure is controlled by the `ports` mapping.
+    - `0.0.0.0:<port>` means externally accessible.
+    - `127.0.0.1:<port>` means local-only access on the host and requires a reverse proxy, e.g. NGINX.
+    - Docker network attachment controls container-to-container communication.
+    - Host-gateway controls container-to-host communication.
 
 ## <a id="platform-features"></a>Platform Features
 

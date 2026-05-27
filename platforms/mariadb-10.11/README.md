@@ -16,8 +16,7 @@
 
 ## <a id="container"></a>Container Configuration
 
-Before building the container:
-
+Containers Access Modes:
 - Set the required environment values in `./docker/.env` from `./docker/.env.example` if no GNU Make will be applied.
 - Container availability by building the container with `docker-composer.yml` in separated configuration layers
     - Stand-alone
