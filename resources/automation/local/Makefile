@@ -59,7 +59,7 @@ network-exists: ## lists all local networks
 	$(DOCKER) network ls
 
 network-create: ## creates network
-	$(SUDO) network create --driver bridge $(PROJECT_LEAD)-$(PROJECT_CNET)
+	$(DOCKER) network create --driver bridge $(PROJECT_LEAD)-$(PROJECT_CNET)
 
 network-info: ## shows network information
 	$(DOCKER) network inspect $(PROJECT_LEAD)-$(PROJECT_CNET) --format '{{json .Containers}}'
