@@ -9,7 +9,8 @@
 
 ## <a id="container"></a>Container Configuration
 
-Containers Access Modes:
+### Containers Access Modes
+
 - If no application is on `./apirest` directory *(or your custom binded directory name)* once container is up it wont provide a application and therefore NGINX will respond with an error. Copy an start-up example application or create a parking page.
 - Set the required environment values in `./docker/.env` from `./docker/.env.example` if no GNU Make will be applied.
 - Set the required configuration files by coping and updating them depending on your project requirements.
