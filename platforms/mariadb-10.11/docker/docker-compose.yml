@@ -9,6 +9,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: ${COMPOSE_PROJECT_CPUS}
           memory: ${COMPOSE_PROJECT_MEM}
     environment:
       PUID: 1000
