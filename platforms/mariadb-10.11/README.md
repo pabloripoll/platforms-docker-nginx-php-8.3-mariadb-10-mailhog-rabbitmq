@@ -1,28 +1,70 @@
-<div id="top-header" style="with:100%;height:auto;text-align:right;"></div>
+<div id="top-header" style="with:100%;height:auto;text-align:right;">
+    <img src="./../../resources/docs/images/pr-banner-long.png">
+</div>
 
 # MARIA DB 10.11
 
-- [./back](../../README.md)
-- [Source](#source)
-- [Container Configuration](#container)
-- [Container Management](#management)
+- [./main](../../README.md)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Management](#management)
 <br>
 
-## <a id="source"></a>Source
+## <a id="features"></a>Features
 
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white)
+![Mariadb](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+
+Content:
+- Linux Ubuntu 24.04
+- MariaDB 10.11
+<br><br>
+
+Sources:
 - https://github.com/MariaDB/mariadb-docker
 - https://github.com/MariaDB/mariadb-docker/tree/master/10.11
 <br><br>
 
-## <a id="container"></a>Container Configuration
+## <a id="configuration"></a>Service Configuration
 
-Containers Access Modes:
+There is a dedicated GNU Make file and the main Docker directory with the required scripts to build the required platform configuration.
+
+This service platform is designed to be managed by a parent `./../../.env` but, as it feeds `./docker/.env` through GNU Make, it can be edited manually.
+
+If no GNU Make is in used, create a copy from the example `./docker/.env.example` into `./docker/.env`.
+
+The service container can be easily manage by the `./docker/docker-compose.yml`.
+
+Require environment variables at `./docker/.env` *(all are customizable)*:
+```bash
+COMPOSE_PROJECT_LEAD="myproj"                           # <- lead abbreviation or acronym as part of related containers naming rule -------------------------> #
+COMPOSE_PROJECT_CNET="mp-dev"                           # <- useful for networking to connect between containers --------------------------------------------> #
+COMPOSE_PROJECT_IMGK="ubuntu24.04-mariadb-10.11"        # <- real main image keys to manage automations for sharing resources -------------------------------> #
+COMPOSE_PROJECT_NAME="mp-mariadb-dev"                   # <- container name to build the service - it is important to set the environment in this variable --> #
+COMPOSE_PROJECT_HOST="127.0.0.1"                        # <- machine hostname referrer - not necessary for this project -------------------------------------> #
+COMPOSE_PROJECT_PORT=7710                               # <- local machine port opened for container service ------------------------------------------------> #
+COMPOSE_PROJECT_CPUS="2.00"                             # <- container's maximum CPUs usage to apply by docker-compose - leave it empty for full usage ------> #
+COMPOSE_PROJECT_MEM="256M"                              # <- container's maximum RAM usage to apply by docker-compose ---------------------------------------> #
+COMPOSE_PROJECT_SWAP="512M"                             # <- container's RAM swap space in storage executed by automation command ---------------------------> #
+MARIADB_ROOT_PASSWORD="root-strong-password"            # <- database root password -------------------------------------------------------------------------> #
+MARIADB_DATABASE="dev_local"                            # <- database name ----------------------------------------------------------------------------------> #
+MARIADB_USER="dev_user"                                 # <- database user ----------------------------------------------------------------------------------> #
+MARIADB_PASSWORD="dev-password"                         # <- database password ------------------------------------------------------------------------------> #
+```
+<br>
+
+### Containers Access Modes
+
 - Set the required environment values in `./docker/.env` from `./docker/.env.example` if no GNU Make will be applied.
+- Set the required configuration files by coping and updating them depending on your project requirements.
 - Container availability by building the container with `docker-composer.yml` in separated configuration layers
     - Stand-alone
         - The container is intended to be published directly and accessed from the host network, typically via `0.0.0.0:<port>`. It does not require a shared Docker network. It is a common setting for local development.
     - Inside a Custom Network
-        - The container is attached to a custom Docker network and is intended to be accessed through a reverse proxy or other containers on the same network. This is useful for isolating services while still allowing container-to-container communication. It is a recommended setting for remote deployment.
+        - The container is attached to a custom Docker network and is intended to be accessed through a reverse proxy or other containers on the same network.
+        - This network setting is useful for isolating services while still allowing container-to-container communication.
+        - It is a strongly recommended setting for remote deployment to avoid exposing the localhost port in used and protect by firewall.
+        - <b>Connect from one container to another inside the custom network, by container name and its own exposed port</b>.
     - Host-Gateway
         - The container can reach services running on the host machine using the Docker host gateway mapping. This is useful when the container must access local services on the VPS/host, while public access is still handled through a reverse proxy. It is a recommended setting for remote deployment too.
     - Public exposure is controlled by the `ports` mapping.
@@ -30,9 +72,15 @@ Containers Access Modes:
     - `127.0.0.1:<port>` means local-only access on the host and requires a reverse proxy, e.g. NGINX.
     - Docker network attachment controls container-to-container communication.
     - Host-gateway controls container-to-host communication.
+
+build: ## builds and ensures changes in the Dockerfile, build steps, or copied-in files are applied. Not --no-recreate
+	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.public.yml up --build -d
+
+network: ## starts up into an existing custom network for container-to-container communication, runnning in detached mode
+	cd docker && $(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.network.yml up -d
 <br><br>
 
-## <a id="management"></a>Container Management
+## <a id="management"></a>Service Management
 
 To manage the container, run the GNU Make recipes
 ```bash
@@ -65,7 +113,9 @@ $ make sql-drop                       drops the current database and creates an 
 $ make remote-host-copy               copies referenced remote database by tcp connection into /[dir-path]/[file-name].sql for local development
 $ make remote-file-copy               copies referenced remote database file into /[dir-path]/[file-name].sql for local development
 ```
-<br>
+<br><br>
+
+---
 
 ## Contributing
 
@@ -90,3 +140,7 @@ This project is open-sourced under the [MIT license](LICENSE).
 <br>
 
 - [GO TOP ⮙](#top-header)
+
+<div style="with:100%;height:auto;text-align:right;">
+    <img src="./../../resources/docs/images/pr-banner-long.png">
+</div>

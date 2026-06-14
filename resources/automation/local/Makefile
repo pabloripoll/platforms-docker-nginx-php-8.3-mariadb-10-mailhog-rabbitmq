@@ -68,32 +68,6 @@ network-destroy: ## destroys network
 	$(DOCKER) network rm $(PROJECT_LEAD)-$(PROJECT_CNET)
 
 # -------------------------------------------------------------------------------------------------
-#  Services Full Control
-# -------------------------------------------------------------------------------------------------
-.PHONY: services-set services-create services-info services-start services-restart services-stop services-destroy
-
-services-set: ## sets all container services
-	$(MAKE) apirest-set db-set mailer-set broker-set
-
-services-create: ## builds and starts up all container services
-	$(MAKE) apirest-create db-create mailer-create broker-create
-
-services-info: ## shows all container services information
-	$(MAKE) apirest-info db-info mailer-info broker-info
-
-services-start: ## starts all container services
-	$(MAKE) apirest-start db-start mailer-start broker-start
-
-services-restart: ## restarts all container services
-	$(MAKE) apirest-restart db-restart mailer-restart broker-restart
-
-services-stop: ## stops all container services
-	$(MAKE) apirest-stop db-stop mailer-stop broker-stop
-
-services-destroy: ## destroys all container services
-	$(MAKE) apirest-destroy db-destroy mailer-destroy broker-destroy
-
-# -------------------------------------------------------------------------------------------------
 #  Backend API Service
 # -------------------------------------------------------------------------------------------------
 .PHONY: apirest-hostcheck apirest-info apirest-set apirest-create apirest-network apirest-ssh apirest-start apirest-stop apirest-destroy

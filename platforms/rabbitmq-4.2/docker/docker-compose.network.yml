@@ -2,8 +2,8 @@ services:
 
   rabbitmq:
     ports:
-      - 127.0.0.1:${COMPOSE_PROJECT_PORT}:5672 # AMQP
-      - 127.0.0.1:${COMPOSE_PROJECT_APP_PORT}:15672 # Management UI
+      - ${COMPOSE_PROJECT_HOST}::${COMPOSE_PROJECT_PORT}:5672 # AMQP
+      - ${COMPOSE_PROJECT_HOST}::${COMPOSE_PROJECT_APP_PORT}:15672 # Management UI
     networks:
       net: {}
 

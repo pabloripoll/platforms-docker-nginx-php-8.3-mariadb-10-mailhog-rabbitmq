@@ -2,6 +2,6 @@
 .gitignore
 .vscode
 compose*.yml
-Dockerfile
+Dockerfile*
 node_modules
 vendor

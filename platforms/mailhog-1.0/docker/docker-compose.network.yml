@@ -2,8 +2,8 @@ services:
 
   mailer:
     ports:
-      - "1217.0.0.1:${COMPOSE_PROJECT_PORT:-1025}:1025"     # SMTP port — send your app mails here
-      - "1217.0.0.1:${COMPOSE_PROJECT_APP_PORT:-8025}:8025" # Web UI + API
+      - ${COMPOSE_PROJECT_HOST}::${COMPOSE_PROJECT_PORT:-1025}:1025       # SMTP port — send your app mails here
+      - ${COMPOSE_PROJECT_HOST}::${COMPOSE_PROJECT_APP_PORT:-8025}:8025   # Web UI + API
     networks:
       net: {}
 
