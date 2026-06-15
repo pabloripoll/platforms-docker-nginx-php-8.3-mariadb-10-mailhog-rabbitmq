@@ -5,11 +5,12 @@
 # NGINX + PHP 8.3
 
 - [./main](../../README.md)
+- [Features](#features)
 - [Configuration](#configuration)
 - [Management](#management)
 <br>
 
-## <a id="features"></a>Service Features
+## <a id="features"></a>Features
 
 ![Alpine Linux](https://img.shields.io/badge/Alpine_Linux-%230D597F.svg?style=for-the-badge&logo=alpine-linux&logoColor=white)
 ![Debian](https://img.shields.io/badge/debian-red?style=for-the-badge&logo=debian&logoColor=orange&color=darkred)
@@ -18,8 +19,10 @@
 ![Composer](https://img.shields.io/badge/Composer-777BB4?style=for-the-badge&logo=composer&logoColor=white)
 
 Content:
-- Linux Ubuntu 24.04
-- MariaDB 10.11
+- Linux Alpine 3.23
+- Linux Debian 12 Slim *(Optional Dockerfile)*
+- PHP FPM 8.3
+- PHP Composer
 <br><br>
 
 It can be installed the most known **PHP** frameworks:
