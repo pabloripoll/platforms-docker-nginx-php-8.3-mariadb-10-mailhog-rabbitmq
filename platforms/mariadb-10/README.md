@@ -2,7 +2,7 @@
     <img src="./../../resources/docs/images/pr-banner-long.png">
 </div>
 
-# MARIA DB 10.11
+# MARIA DB 11
 
 - [./main](../../README.md)
 - [Features](#features)
@@ -17,12 +17,13 @@
 
 Content:
 - Linux Ubuntu 24.04
-- MariaDB 10.11
+- MariaDB 10
 <br><br>
 
 Sources:
 - https://github.com/MariaDB/mariadb-docker
-- https://github.com/MariaDB/mariadb-docker/tree/master/10.11
+- https://github.com/MariaDB/mariadb-docker/tree/master/10
+- https://hub.docker.com/_/mariadb
 <br><br>
 
 ## <a id="configuration"></a>Service Configuration
@@ -39,7 +40,7 @@ Require environment variables at `./docker/.env` *(all are customizable)*:
 ```bash
 COMPOSE_PROJECT_LEAD="myproj"                           # <- lead abbreviation or acronym as part of related containers naming rule -------------------------> #
 COMPOSE_PROJECT_CNET="mp-dev"                           # <- useful for networking to connect between containers --------------------------------------------> #
-COMPOSE_PROJECT_IMGK="ubuntu24.04-mariadb-10.11"        # <- real main image keys to manage automations for sharing resources -------------------------------> #
+COMPOSE_PROJECT_IMGK="ubuntu-24-mariadb-10"             # <- real main image keys to manage automations for sharing resources -------------------------------> #
 COMPOSE_PROJECT_NAME="mp-mariadb-dev"                   # <- container name to build the service - it is important to set the environment in this variable --> #
 COMPOSE_PROJECT_HOST="127.0.0.1"                        # <- machine hostname referrer - not necessary for this project -------------------------------------> #
 COMPOSE_PROJECT_PORT=7710                               # <- local machine port opened for container service ------------------------------------------------> #

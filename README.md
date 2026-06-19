@@ -8,7 +8,7 @@
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](./)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-# PHP 8.3 + MariaDB 10.11 + MailHog 1.0 + RabbitMQ 4.2
+# PHP 8.3 + MariaDB 11 + MailHog 1.0 + RabbitMQ 4.2
 <br>
 
 This Infrastructure Platform repository is designed for back-end projects and provides three separate platforms:
@@ -16,7 +16,7 @@ This Infrastructure Platform repository is designed for back-end projects and pr
 ## Platforms for Full-Stack Project
 
 - API: [NGINX + PHP 8.3](./platforms/nginx-php-8.3/README.md)
-- Database: [MariaDB 10.11](./platforms/mariadb-10.11/README.md)
+- Database: [MariaDB 10](./platforms/mariadb-10/README.md)
 - Mail Service: [Mail Hog 1.0](./platforms/mailhog-1.0/README.md)
 - Message Broker: [RabbitMQ 4.2](./platforms/rabbitmq-4.2/README.md)
 <br><br>
@@ -74,6 +74,8 @@ By leveraging Platform Engineering principles, this project reduces cognitive lo
 ## <a id="requirements"></a>Requirements
 
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+![MacOS](https://img.shields.io/badge/MacOS-f0f0f0?logo=apple&logoColor=black&style=for-the-badge)
 ![gnu](https://img.shields.io/badge/gnu-%23A42E2B.svg?style=for-the-badge&logo=gnu&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
@@ -92,7 +94,7 @@ Despite Docker’s cross-platform compatibility, for intermediate to advanced so
 
 ## <a id="containers-networking"></a>Containers Networking - Access Modes
 
-- If no application is on `./apirest` directory *(or your custom binded directory name)* once container is up it wont provide a application and therefore NGINX will respond with an error. Copy an start-up example application or create a parking page.
+- If no application is on `./api-rest` directory *(or your custom binded directory name)* once container is up it wont provide a application and therefore NGINX will respond with an error. Copy an start-up example application or create a parking page.
 
 - Each container have a directory to set the required environment values in `./docker/.env` from `./docker/.env.example` if no GNU Make will be applied.
 
@@ -132,7 +134,7 @@ Once variables set, each Docker platform container environment variables can be 
   ```bash
   $ make apirest-set
   ```
-  **Remember**: *the `./apirest` directory name is custimizable for binding between the container and local machine.*
+  **Remember**: *the `./api-rest` directory name is custimizable for binding between the container and local machine.*
 
 - Set up the database container
   ```bash
@@ -182,16 +184,13 @@ $ make broker-create
 ```
 <br>
 
-Test mail service container by clicking "Direct Test MAIL" link
-<br>
-
 Docker information of both cointer up and running
 ```bash
 $ sudo docker ps
 ```
 <br>
 
-Despite each container can be stop or restarted, they can be stop and destroy both containers simultaneously to clean up locally from Docker generated cache, without affecting other containers running on the same machine.
+Despite each container can be stop or restarted, they can be stop and destroy both containers simultaneously to clean up locally from Docker generated cache, without affecting other containers running on the same machine. E.g.:
 ```bash
 $ yes | make apirest-destroy db-destroy mailer-destroy broker-destroy
 ```
@@ -202,7 +201,7 @@ $ yes | make apirest-destroy db-destroy mailer-destroy broker-destroy
 Repository directories structure overview
 ```sh
 .
-├── apirest                     # detached repository
+├── api-rest                     # detached repository
 │   ├── src
 │   ├── .env
 │   ├── vendor
@@ -217,7 +216,7 @@ Repository directories structure overview
 │   │   │   └── Dockerfile
 │   │   └── Makefile
 │   │
-│   ├── mariadb-10.11
+│   ├── mariadb-10
 │   │   ├── docker
 │   │   │   ├── .env
 │   │   │   ├── docker-compose.yml
@@ -242,7 +241,7 @@ Repository directories structure overview
 │   ├── automation
 │   │   ├── local
 │   │   │   ├── Makefile        # root ./
-│   │   │   └── Makefile.child  # this goes inside ./apirest
+│   │   │   └── Makefile.child  # this goes inside ./api-rest
 │   │   └── remote
 │   ├── databases
 │   │   ├── example-init.sql
@@ -260,56 +259,56 @@ Set up platforms
 - Copy `.env.example` to `.env` and adjust settings (rest api port, database port, mail service port, container RAM usage, etc.)
 <br>
 
-### Managing the `apirest` Directory: Submodule vs Detached Repository
+### Managing the `api-rest` Directory: Submodule vs Detached Repository
 
-To remove the `./apirest` directory with the default installation content and install your desired repository inside it, there are two alternatives for managing both the platform and apirest repositories independently:
+To remove the `./api-rest` directory with the default installation content and install your desired repository inside it, there are two alternatives for managing both the platform and api-rest repositories independently:
 
 Here’s a step-by-step guide for using this Platform repository along with your own REST API repository:
 
-- Remove the existing `./apirest` directory contents from local and from git cache
-- Install your desired repository inside `./apirest`
+- Remove the existing `./api-rest` directory contents from local and from git cache
+- Install your desired repository inside `./api-rest`
 - Choose between Git submodule and detached repository approaches
 
 #### 1. **GIT Detached Repository (Recommended)**
 
 > Git commands can be executed **whether from inside the container or on the local machine**.
 
-- Remove `apirest` from local and git cache:
+- Remove `api-rest` from local and git cache:
   ```bash
-  $ git rm -r --cached -- "apirest/*" ":(exclude)apirest/.gitkeep"
+  $ git rm -r --cached -- "api-rest/*" ":(exclude)api-rest/.gitkeep"
   $ git clean -fd
   $ git reset --hard
-  $ git commit -m "maint: apirest directory and its default installation removed"
+  $ git commit -m "maint: api-rest directory and its default installation removed"
   ```
 
 - Clone the desired repository as a detached repository:
   ```bash
-  $ git clone git@[vcs]:[account]/[repository].git ./apirest
+  $ git clone git@[vcs]:[account]/[repository].git ./api-rest
   ```
 
-- The `./apirest` directory is now an **independent repository**, not tracked as a submodule in your main repo. You can use `git` commands freely inside `apirest` from anywhere.
+- The `./api-rest` directory is now an **independent repository**, not tracked as a submodule in your main repo. You can use `git` commands freely inside `api-rest` from anywhere.
 <br>
 
 #### 2. **GIT Sub-module**
 
 > Git commands can be executed **only from inside the container**.
 
-- Remove `apirest` from local and git cache:
+- Remove `api-rest` from local and git cache:
   ```bash
-  $ rm -rfv ./apirest/* ./apirest/.[!.]*$
-  $ git rm -r --cached apirest
-  $ git commit -m "maint: apirest directory and its default installation removed"
+  $ rm -rfv ./api-rest/* ./api-rest/.[!.]*$
+  $ git rm -r --cached api-rest
+  $ git commit -m "maint: api-rest directory and its default installation removed"
   ```
 
 - Add the desired repository as a submodule:
   ```bash
-  $ git submodule add git@[vcs]:[account]/[repository].git ./apirest
-  $ git commit -m "maint: apirest as a git submodule added"
+  $ git submodule add git@[vcs]:[account]/[repository].git ./api-rest
+  $ git commit -m "maint: api-rest as a git submodule added"
   ```
 
 - To update submodule contents:
   ```bash
-  $ cd ./apirest
+  $ cd ./api-rest
   $ git pull origin main  # or desired branch
   ```
 
@@ -325,7 +324,7 @@ Here’s a step-by-step guide for using this Platform repository along with your
 | Submodule        | Tracked by main  | Inside container         | Main repo controls webapp version|
 | Detached (rec.)  | Fully independent| Local or container       | Maximum flexibility              |
 
-> **Note**: After new project cloned inside `./apirest`, consider adding `./apirest/.gitkeep` in it to prevent accidental tracking *(especially for detached repository)*.
+> **Note**: After new project cloned inside `./api-rest`, consider adding `./api-rest/.gitkeep` in it to prevent accidental tracking *(especially for detached repository)*.
 <br><br>
 
 <br>
