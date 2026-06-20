@@ -65,7 +65,7 @@ COMPOSE_PROJECT_IMGK="alpine3.21-nginx1.26-php8.3"      # <- real main image key
 COMPOSE_PROJECT_NAME="mp-apirest-dev"                   # <- container name to build the service - it is important to set the environment in this variable --> #
 COMPOSE_PROJECT_HOST="127.0.0.1"                        # <- machine hostname referrer - not necessary for this project -------------------------------------> #
 COMPOSE_PROJECT_PORT=7501                               # <- local machine port opened for container service ------------------------------------------------> #
-COMPOSE_PROJECT_PATH="../../../apirest"                 # <- path where application is binded from container to local ---------------------------------------> #
+COMPOSE_PROJECT_PATH="../../../api-rest"                # <- path where application is binded from container to local ---------------------------------------> #
 COMPOSE_PROJECT_CPUS="2.00"                             # <- container's maximum CPUs usage to apply by docker-compose - leave it empty for full usage ------> #
 COMPOSE_PROJECT_MEM="128M"                              # <- container's maximum CPUs usage to apply by docker-compose - leave it empty for full usage ------> #
 COMPOSE_PROJECT_SWAP="256M"                             # <- container's maximum RAM usage to apply by docker-compose ---------------------------------------> #
@@ -81,7 +81,7 @@ Although the project aims to keep platform settings consistent across machines, 
 
 ### Containers Access Modes
 
-- If no application is on `./apirest` directory *(or your custom binded directory name)* once container is up it wont provide a application and therefore NGINX will respond with an error. Copy an start-up example application or create a parking page.
+- If no application is on `./api-rest` directory *(or your custom binded directory name)* once container is up it wont provide a application and therefore NGINX will respond with an error. Copy an start-up example application or create a parking page.
 - Set the required environment values in `./docker/.env` from `./docker/.env.example` if no GNU Make will be applied.
 - Set the required configuration files by coping and updating them depending on your project requirements.
 - Container availability by building the container with `docker-composer.yml` in separated configuration layers
