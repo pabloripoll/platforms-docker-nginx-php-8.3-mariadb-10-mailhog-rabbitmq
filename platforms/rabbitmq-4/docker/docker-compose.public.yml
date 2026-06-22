@@ -1,4 +1,4 @@
-# docker-compose.ports.yml - standalone, world accessible
+# docker-compose.public.yml - standalone, world accessible
 services:
 
   rabbitmq:
