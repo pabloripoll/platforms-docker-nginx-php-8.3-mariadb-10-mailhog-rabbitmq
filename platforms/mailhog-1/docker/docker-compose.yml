@@ -12,7 +12,7 @@ services:
       resources:
         limits:
           cpus: ${COMPOSE_PROJECT_CPUS}
-          memory: ${COMPOSE_PROJECT_MEM} # On Docker Swarm, move resource limits into 'deploy.resources.limits'
+          memory: ${COMPOSE_PROJECT_MEMO} # On Docker Swarm, move resource limits into 'deploy.resources.limits'
     environment:
       - MH_SMTP_BIND_ADDR=0.0.0.0:1025
       - MH_API_BIND_ADDR=0.0.0.0:8025
