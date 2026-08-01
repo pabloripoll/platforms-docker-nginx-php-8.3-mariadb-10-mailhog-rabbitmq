@@ -138,8 +138,7 @@ restart: ## restarts the running container
 
 clear: ## removes container from Docker running containers
 	cd docker && $(DOCKER_COMPOSE) kill || true
-	cd docker && $(DOCKER_COMPOSE) rm --force || true
-	cd docker && $(DOCKER_COMPOSE) down -v --remove-orphans || true
+	cd docker && $(DOCKER_COMPOSE) down --volumes --remove-orphans || true
 
 destroy: ## delete container image from Docker cache
 	cd docker && $(DOCKER) rmi -f $(DOCKER_IMGK)

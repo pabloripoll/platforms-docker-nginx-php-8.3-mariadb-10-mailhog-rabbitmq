@@ -236,6 +236,16 @@ mailer-stop: ## stops the mailer container but its assets will not be destroyed
 mailer-restart: ## restarts the running mailer container
 	cd platforms/$(MAILER_PLTF) && $(MAKE) restart
 
+mailer-down: ## stops and removes the container, network and volume established
+	echo ${C_RED}"Attention!"${C_END};
+	echo ${C_YEL}"You're about to stop and remove the "${C_BLU}"$(MAILER_PLTF)"${C_END}" container with its network and volume."${C_END};
+	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
+        echo ${C_GRN}"K.O.! container continues with its latest status."${C_END}; \
+    else \
+		cd platforms/$(MAILER_PLTF) && $(MAKE) stop clear destroy; \
+		echo ${C_GRN}"O.K.! $(MAILER_PLTF) has been cleared down."${C_END}; \
+	fi
+
 mailer-destroy: ## destroys completly the mailer container
 	echo ${C_RED}"Attention!"${C_END};
 	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(MAILER_PLTF)"${C_END}" container and delete its image resource."${C_END};
