@@ -154,7 +154,7 @@ clear: ## removes container from Docker running containers with its network and 
 	cd docker && $(DOCKER_COMPOSE) down --volumes --remove-orphans || true
 
 destroy: ## delete container image from Docker cache
-	cd docker && $(DOCKER) rmi $(DOCKER_IMGK)
+	cd docker && $(DOCKER) rmi -f $(DOCKER_IMGK)
 	$(SUDO) rm -rf $(BROKER_DATA)
 	$(SUDO) rm -rf $(BROKER_LOGS)
 
