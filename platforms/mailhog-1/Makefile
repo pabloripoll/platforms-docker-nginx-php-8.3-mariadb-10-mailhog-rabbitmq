@@ -27,6 +27,8 @@ DOCKER_CNET=$(PROJECT_CNET)
 DOCKER_HOST=$(PROJECT_HOST)
 DOCKER_IMGK=$(MAILER_IMGK)
 DOCKER_PORT=$(MAILER_PORT)
+DOCKER_DATA=$(MAILER_DATA)
+DOCKER_LOGS=$(MAILER_LOGS)
 DOCKER_CAAS=$(MAILER_CAAS)
 DOCKER_CPUS=$(MAILER_CPUS)
 DOCKER_MEMO=$(MAILER_MEMO)
@@ -85,6 +87,8 @@ else
 	@echo "COMPOSE_PROJECT_IMGK=$(DOCKER_IMGK)" >> ./docker/.env
 	@echo "COMPOSE_PROJECT_HOST=$(DOCKER_HOST)" >> ./docker/.env
 	@echo "COMPOSE_PROJECT_PORT=$(DOCKER_PORT)" >> ./docker/.env
+	@echo "COMPOSE_PROJECT_DATA=\"$(DOCKER_DATA)\"" >> ./docker/.env
+	@echo "COMPOSE_PROJECT_LOGS=\"$(DOCKER_LOGS)\"" >> ./docker/.env
 	@echo "COMPOSE_PROJECT_NAME=$(DOCKER_CAAS)" >> ./docker/.env
 	@echo "COMPOSE_PROJECT_CPUS=$(DOCKER_CPUS)" >> ./docker/.env
 	@echo "COMPOSE_PROJECT_MEMO=$(DOCKER_MEMO)" >> ./docker/.env
@@ -112,6 +116,7 @@ info: ## shows container information
 	echo ${C_YEL}"Memory.......: "${C_END}"$(DOCKER_MEMO)";
 	echo ${C_YEL}"Host.........: "${C_END}"$(DOCKER_HOST):$(DOCKER_PORT)";
 	echo ${C_YEL}"Hostname.....: "${C_END}"$(word 1,$(shell hostname -I)):"$(DOCKER_PORT);
+	echo ${C_YEL}"App.Host.....: "${C_END}"http://127.0.0.1:$(DOCKER_APP_PORT)";
 	printf ${C_YEL}"Docker.Host..: "${C_END};$(DOCKER) inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(DOCKER_CONTAINER);
 	printf ${C_YEL}"NetworkID....: "${C_END};$(DOCKER) inspect -f '{{range.NetworkSettings.Networks}}{{.NetworkID}}{{end}}' $(DOCKER_CONTAINER);
 
@@ -142,7 +147,8 @@ clear: ## removes container from Docker running containers
 
 destroy: ## delete container image from Docker cache
 	cd docker && $(DOCKER) rmi -f $(DOCKER_IMGK)
-	$(SUDO) rm -rf ./data ./log
+	$(SUDO) rm -rf $(DOCKER_DATA)
+	$(SUDO) rm -rf $(DOCKER_LOGS)
 
 dev: ## sets a development enviroment
 	echo ${C_YEL}"\"dev\" recipe has not usage in this project"${C_END};
