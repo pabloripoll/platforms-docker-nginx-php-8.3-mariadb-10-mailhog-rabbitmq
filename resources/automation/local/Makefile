@@ -287,13 +287,23 @@ broker-stop: ## stops the broker container but its assets will not be destroyed
 broker-restart: ## restarts the running broker container
 	cd platforms/$(BROKER_PLTF) && $(MAKE) restart
 
-broker-destroy: ## destroys completly the broker container
+broker-down: ## stops and removes the container, network and volume established
+	echo ${C_RED}"Attention!"${C_END};
+	echo ${C_YEL}"You're about to stop and remove the "${C_BLU}"$(BROKER_PLTF)"${C_END}" container with its network and volume."${C_END};
+	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
+        echo ${C_GRN}"K.O.! container continues with its latest status."${C_END}; \
+    else \
+		cd platforms/$(BROKER_PLTF) && $(MAKE) stop clear destroy; \
+		echo ${C_GRN}"O.K.! $(BROKER_PLTF) has been cleared down."${C_END}; \
+	fi
+
+broker-destroy: ## destroys completly the container source image
 	echo ${C_RED}"Attention!"${C_END};
 	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(BROKER_PLTF)"${C_END}" container and delete its image resource."${C_END};
 	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
-        echo ${C_GRN}"K.O.! container has been stopped but not destroyed."${C_END}; \
+        echo ${C_GRN}"K.O.! container continues with its latest status."${C_END}; \
     else \
-		cd platforms/$(BROKER_PLTF) && $(MAKE) stop clear destroy; \
+		cd platforms/$(BROKER_PLTF) && $(MAKE) stop clear; \
 		echo -n ${C_GRN}"Do you want to clear DOCKER cache? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
 			echo ${C_YEL}"The following command is delegated to be executed by user:"${C_END}; \
 			echo "$$ $(DOCKER) system prune"; \
