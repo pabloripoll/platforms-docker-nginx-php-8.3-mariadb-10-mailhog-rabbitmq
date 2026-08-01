@@ -1,3 +1,3 @@
-/docker/.env
+# Ignore container bindings
 /data
 /log*
