@@ -1,5 +1,4 @@
 ## Sources to build the container
-FROM alpine:3.23
 FROM php:8.3-fpm-alpine
 
 ARG UID
@@ -80,24 +79,31 @@ RUN apk add --no-cache \
   ## Mysql - Mariadb
   php83-pdo_mysql \
   php83-mysqlnd \
-  php83-mysqli \
+  php83-mysqli
   ## Postgre
   #php83-pgsql \
   #php83-pdo_pgsql \
-  #postgresql-dev \
-  ## Postgre
-  php85-pgsql \
-  php85-pdo_pgsql \
-  postgresql-dev \
+  #postgresql-dev
   ## MongoDB
-  #php85-pecl-mongodb \
+  #php83-pecl-mongodb \
   ## Redis
-  #php85-pecl-redis \
-  ## RabbitMQ
-  rabbitmq-c \
-  php85-pecl-amqp
+  #php83-pecl-amqp
   ## XDebug
-  #php85-pecl-xdebug
+  #php83-pecl-xdebug
+
+## Install amqp via PECL for clients that use the native ext-amqp like RabbitMQ
+#RUN apk add --no-cache rabbitmq-c
+#RUN set -eux; \
+#    apk add --no-cache --virtual .amqp-build-deps $PHPIZE_DEPS rabbitmq-c-dev; \
+#    pecl install amqp; \
+#    docker-php-ext-enable amqp; \
+#    php -m | grep -i amqp; \
+#    apk del .amqp-build-deps; \
+#    rm -rf /tmp/pear ~/.pearrc
+
+## Install MongoDB extension from PECL
+#RUN pecl install mongodb-2.1.0 \
+#    && docker-php-ext-enable mongodb
 
 ## PHP required extensions from Docker
 RUN docker-php-ext-install \
@@ -110,19 +116,6 @@ RUN docker-php-ext-install \
   sockets \
   ## Process Control (jobs)
   pcntl
-
-## If php85-pecl-amqp is not used, install amqp via PECL for clients that use the native ext-amqp like RabbitMQ
-#RUN set -eux; \
-#    apk add --no-cache --virtual .amqp-build-deps $PHPIZE_DEPS rabbitmq-c-dev; \
-#    pecl install amqp; \
-#    docker-php-ext-enable amqp; \
-#    php -m | grep -i amqp; \
-#    apk del .amqp-build-deps; \
-#    rm -rf /tmp/pear ~/.pearrc
-
-## If php85-pecl-mongodb is not used, install mongodb extension from PECL
-#RUN pecl install mongodb-2.1.0 \
-#    && docker-php-ext-enable mongodb
 
 ## Clean up build dependencies to reduce image size
 RUN apk del .build-deps

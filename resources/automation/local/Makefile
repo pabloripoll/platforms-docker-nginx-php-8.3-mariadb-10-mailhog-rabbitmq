@@ -106,6 +106,16 @@ apirest-stop: ## stops the apirest container but its assets will not be destroye
 apirest-restart: ## restarts the running apirest container
 	cd platforms/$(APIREST_PLTF) && $(MAKE) restart
 
+apirest-down: ## stops and removes the container, network and volume established
+	echo ${C_RED}"Attention!"${C_END};
+	echo ${C_YEL}"You're about to stop and remove the "${C_BLU}"$(APIREST_PLTF)"${C_END}" container with its network and volume."${C_END};
+	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
+        echo ${C_GRN}"K.O.! container continues with its latest status."${C_END}; \
+    else \
+		cd platforms/$(APIREST_PLTF) && $(MAKE) stop clear destroy; \
+		echo ${C_GRN}"O.K.! $(APIREST_PLTF) has been cleared down."${C_END}; \
+	fi
+
 apirest-destroy: ## destroys completly the apirest container
 	echo ${C_RED}"Attention!"${C_END};
 	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(APIREST_PLTF)"${C_END}" container and delete its image resource."${C_END};
