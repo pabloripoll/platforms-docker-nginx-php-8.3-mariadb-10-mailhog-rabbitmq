@@ -167,6 +167,16 @@ db-stop: ## stops the database container but its assets will not be destroyed
 db-restart: ## restarts the running database container
 	cd platforms/$(DATABASE_PLTF) && $(MAKE) restart
 
+db-down: ## stops and removes the container, network and volume established
+	echo ${C_RED}"Attention!"${C_END};
+	echo ${C_YEL}"You're about to stop and remove the "${C_BLU}"$(DATABASE_PLTF)"${C_END}" container with its network and volume."${C_END};
+	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
+        echo ${C_GRN}"K.O.! container continues with its latest status."${C_END}; \
+    else \
+		cd platforms/$(DATABASE_PLTF) && $(MAKE) stop clear destroy; \
+		echo ${C_GRN}"O.K.! $(DATABASE_PLTF) has been cleared down."${C_END}; \
+	fi
+
 db-destroy: ## destroys completly the database container with its data
 	echo ${C_RED}"Attention!"${C_END};
 	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(DATABASE_PLTF)"${C_END}" container and delete its image resource and persistance data."${C_END};

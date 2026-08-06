@@ -10,7 +10,7 @@ services:
       resources:
         limits:
           cpus: ${COMPOSE_PROJECT_CPUS}
-          memory: ${COMPOSE_PROJECT_MEM}
+          memory: ${COMPOSE_PROJECT_MEMO}
     environment:
       PUID: 1000
       PGID: 1000
@@ -20,6 +20,6 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
-      - ./data:/var/lib/mysql
+      - .${COMPOSE_PROJECT_DATA}:/var/lib/mysql
     tty: true
     restart: unless-stopped
