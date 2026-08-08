@@ -16,7 +16,7 @@ This Infrastructure Platform repository is designed for back-end projects and pr
 ## Platforms for Full-Stack Project
 
 - API: [NGINX + PHP 8.3](./platforms/nginx-php-8.3/README.md)
-- Database: [MariaDB 10](./platforms/mariadb-10/README.md)
+- Database: [MariaDB 10+](./platforms/mariadb-10/README.md)
 - Mail Service: [MailHog 1+](./platforms/mailhog-1/README.md)
 - Message Broker: [RabbitMQ 4+](./platforms/rabbitmq-4/README.md)
 <br><br>
