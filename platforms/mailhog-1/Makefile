@@ -105,7 +105,7 @@ endif
 # -------------------------------------------------------------------------------------------------
 #  Container
 # -------------------------------------------------------------------------------------------------
-.PHONY: info ssh build up dev start stop restart clear destroy
+.PHONY: info ssh up build network start stop restart clear destroy dev
 
 info: ## shows container information
 	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" - MAILER: "${C_GRN}"$(DOCKER_PLTF)"${C_END};

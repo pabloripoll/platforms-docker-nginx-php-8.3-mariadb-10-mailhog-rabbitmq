@@ -12,8 +12,8 @@
 
 ## <a id="features"></a>Features
 
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white)
-![Mariadb](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+![Ubuntu](https://shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white)
+![Mariadb](https://shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 
 Content:
 - Linux Ubuntu 24.04
@@ -45,14 +45,14 @@ COMPOSE_PROJECT_NAME=mp-mariadb-dev                     # <- container name to b
 COMPOSE_PROJECT_HOST=127.0.0.1                          # <- machine hostname referrer - not necessary for this project -------------------------------------> #
 COMPOSE_PROJECT_PORT=7710                               # <- local machine port opened for container service ------------------------------------------------> #
 COMPOSE_PROJECT_CPUS=2.00                               # <- container's maximum CPUs usage to apply by docker-compose - leave it empty for full usage ------> #
-COMPOSE_PROJECT_MEM=256M                                # <- container's maximum RAM usage to apply by docker-compose ---------------------------------------> #
+COMPOSE_PROJECT_MEMO=256M                               # <- container's maximum RAM usage to apply by docker-compose ---------------------------------------> #
 COMPOSE_PROJECT_SWAP=512M                               # <- container's RAM swap space in storage executed by automation command ---------------------------> #
 COMPOSE_PROJECT_DATA="./data"                           # <- platform binded data storage in local ----------------------------------------------------------> #
 COMPOSE_PROJECT_LOGS="./logs"                           # <- platform binded logs storage in local ----------------------------------------------------------> #
 MARIADB_ROOT_PASSWORD="root-strong-password"            # <- database root password -------------------------------------------------------------------------> #
-MARIADB_DATABASE=local_dev                              # <- database name ----------------------------------------------------------------------------------> #
-MARIADB_USER=user_dev                                   # <- database user ----------------------------------------------------------------------------------> #
-MARIADB_PASSWORD="password-dev"                         # <- database password ------------------------------------------------------------------------------> #
+MARIADB_DATABASE=dev_local                              # <- database name ----------------------------------------------------------------------------------> #
+MARIADB_USER=dev_user                                   # <- database user ----------------------------------------------------------------------------------> #
+MARIADB_PASSWORD="dev-password"                         # <- database password ------------------------------------------------------------------------------> #
 ```
 <br>
 

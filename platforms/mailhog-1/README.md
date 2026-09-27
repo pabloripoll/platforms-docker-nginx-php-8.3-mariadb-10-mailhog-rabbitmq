@@ -12,8 +12,8 @@
 
 ## <a id="features"></a>Service Features
 
-![Alpine Linux](https://img.shields.io/badge/Alpine_Linux-%230D597F.svg?style=for-the-badge&logo=alpine-linux&logoColor=white)
-![MailHog](https://img.shields.io/badge/Mailhog-EF4223?style=for-the-badge&logo=mailhog&logoColor=white)
+![Alpine Linux](https://shields.io/badge/Alpine_Linux-%230D597F.svg?style=for-the-badge&logo=alpine-linux&logoColor=white)
+![MailHog](https://shields.io/badge/Mailhog-EF4223?style=for-the-badge&logo=mailhog&logoColor=white)
 
 Content:
 - Linux Alpine version 3.12
