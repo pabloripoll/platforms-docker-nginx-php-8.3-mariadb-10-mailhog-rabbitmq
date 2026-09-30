@@ -202,6 +202,7 @@ $ podman machine start
     - Host-gateway controls container-to-host communication.
 <br><br>
 
+
 ## <a id="platforms-setup"></a>Platforms Setup
 
 Create the root `./.env` file from the [./.env.example](./.env.example) and follow its description to configure the platforms required environment variables.
@@ -241,50 +242,49 @@ Once variables are set, each Docker platform container environment variables can
 
 ## <a id="platforms-startup"></a>Platforms Startup
 
-Create and startup the API container
-```bash
-$ make apirest-create
-```
+- Create and startup the API container
+  ```bash
+  $ make apirest-create
+  ```
+  You can test the container by visiting localhost + assigned port
 <br>
 
-Testing container visiting localhost with the assigned port, but with no database connection established or failed because of wrong configuration
+- Create and startup the database container
+  ```bash
+  $ make db-create
+  ```
 <br>
 
-Create and startup the database container
-```bash
-$ make db-create
-```
+- Create and startup the mail service container
+  ```bash
+  $ make mailer-create
+  ```
 <br>
 
-Once database service is up and running, status message will show successful connection
+- Create and startup the message broker service container
+  ```bash
+  $ make broker-create
+  ```
 <br>
 
-Create and startup the mail service container
-```bash
-$ make mailer-create
-```
-<br>
-
-Create and startup the message broker service container
-```bash
-$ make broker-create
-```
-<br>
-
-Test mail sandobox service container by clicking "Direct Test MAIL" link
-<br>
-
-Docker information of both cointer up and running
-```bash
-$ sudo docker ps
-```
-<br>
-
-Despite each container can be stop or restarted, they can be stopped and destroyed both containers simultaneously to clean up Docker generated cache, without affecting other containers running on the same machine.
+Remember to use `make help` command to see all available receipes, so you can execute multiple platforms recipes at once as the following example:
 ```bash
 $ yes | make apirest-destroy db-destroy mailer-destroy broker-destroy
 ```
+
+Execute the Docker ps command to see the containers that are up and running.
+```bash
+$ sudo docker ps
+```
+
+If someone has failed, from the list you can see the the container logs to review the possible issue with it. E.g.:
+```bash
+$ make apirest-info # displays container information
+
+$ sudo docker logs [container-name]
+```
 <br><br>
+
 
 ## <a id="platform-usage"></a>Use this Platform Repository for your own projects
 
